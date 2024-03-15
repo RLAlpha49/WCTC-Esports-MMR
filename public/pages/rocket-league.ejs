@@ -15,31 +15,15 @@
         divisions.
       </p>
 
-      <h2>Varsity</h2>
-      <% varsityPlayers.forEach(player => { %>
-        <h3><%= player.username %></h3>
-        <p>3s MMR: <%= player.mmr3s %></p>
-        <p>2s MMR: <%= player.mmr2s %></p>
-        <p>1s MMR: <%= player.mmr1s %></p>
-        <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
-      <% }) %>
-
-      <h2>JV</h2>
-      <% jvPlayers.forEach(player => { %>
-        <h3><%= player.username %></h3>
-        <p>3s MMR: <%= player.mmr3s %></p>
-        <p>2s MMR: <%= player.mmr2s %></p>
-        <p>1s MMR: <%= player.mmr1s %></p>
-        <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
-      <% }) %>
-
-      <h2>JV2</h2>
-      <% jv2Players.forEach(player => { %>
-        <h3><%= player.username %></h3>
-        <p>3s MMR: <%= player.mmr3s %></p>
-        <p>2s MMR: <%= player.mmr2s %></p>
-        <p>1s MMR: <%= player.mmr1s %></p>
-        <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
+      <% ['Varsity', 'JV', 'JV2'].forEach(division => { %>
+        <h2><%= division %></h2>
+        <% players[division.toLowerCase()].forEach(player => { %>
+          <h3><%= player.username %></h3>
+          <p>3s MMR: <%= player.mmr3s %></p>
+          <p>2s MMR: <%= player.mmr2s %></p>
+          <p>1s MMR: <%= player.mmr1s %></p>
+          <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
+        <% }) %>
       <% }) %>
 
     </div>
