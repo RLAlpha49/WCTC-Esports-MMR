@@ -20,13 +20,15 @@
         <h2><%= division %></h2>
         <% players[division.toLowerCase()].forEach(player => { %>
           <h3><%= player.username %></h3>
-          <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" src="<%= player.mmr3sImagePath %>" alt="<%= player.mmr3s %> rank"></p>
-          <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" src="<%= player.mmr2sImagePath %>" alt="<%= player.mmr2s %> rank"></p>
-          <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" src="<%= player.mmr1sImagePath %>" alt="<%= player.mmr1s %> rank"></p>
+          <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" data-src="<%= player.mmr3sImagePath %>" alt="<%= player.mmr3s %> rank"></p>
+          <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" data-src="<%= player.mmr2sImagePath %>" alt="<%= player.mmr2s %> rank"></p>
+          <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" data-src="<%= player.mmr1sImagePath %>" alt="<%= player.mmr1s %> rank"></p>
           <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
         <% }) %>
       <% }) %>
 
     </div>
+    <!--suppress HtmlUnknownTarget -->
+    <script src="/scripts/lazyLoadImages.js"></script>
   </body>
 </html>
