@@ -1,16 +1,16 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const appController = require('./appController');
+const express = require('express')
+const app = express()
+const port = 3000
+const appController = require('./appController')
 
-app.use('/', appController);
-app.use(express.static('public'));
-app.use(express.static('public/pages'));
+app.use('/', appController)
+app.use(express.static('public'))
+app.use(express.static('public/pages'))
 
-function start() {
+function start () {
   app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-  });
+    console.log(`Server running at http://localhost:${port}`)
+  })
 }
 
-module.exports = { start };
+module.exports = { start }

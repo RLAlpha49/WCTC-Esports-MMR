@@ -1,7 +1,8 @@
+---
 name: 'Dependency review'
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths:
       - 'package.json'
       - 'package-lock.json'
@@ -21,3 +22,5 @@ jobs:
         uses: actions/dependency-review-action@v4
         with:
           comment-summary-in-pr: always
+          base-ref: 'main'
+          head-ref: '${{ github.sha }}'
