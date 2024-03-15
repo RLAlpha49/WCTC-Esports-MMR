@@ -1,11 +1,9 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const appController = require('./appController')
+const appController = require('./Controllers/AppController')
 
 app.use('/', appController)
-app.use(express.static('public'))
-app.use(express.static('public/pages'))
 
 function start () {
   app.listen(port, () => {
