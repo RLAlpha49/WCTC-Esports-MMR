@@ -29,9 +29,9 @@ const imagePathBase = '/images/RL-Ranks/'
 
 // Sample data
 const varsityPlayers = [
-  { username: 'VarsityPlayer1', mmr3s: 1000, mmr2s: 900, mmr1s: 800 },
-  { username: 'VarsityPlayer2', mmr3s: 1100, mmr2s: 1000, mmr1s: 900 },
-  { username: 'VarsityPlayer3', mmr3s: 1200, mmr2s: 1100, mmr1s: 1000 }
+  { username: 'Alpha49_', mmr3s: 1000, mmr2s: 900, mmr1s: 800 }
+  // { username: 'VarsityPlayer2', mmr3s: 1100, mmr2s: 1000, mmr1s: 900 },
+  // { username: 'VarsityPlayer3', mmr3s: 1200, mmr2s: 1100, mmr1s: 1000 }
 ]
 
 const jvPlayers = [
@@ -46,52 +46,36 @@ const jv2Players = [
   { username: 'JV2Player3', mmr3s: 1200, mmr2s: 1100, mmr1s: 1000 }
 ]
 
-function getRocketLeagueData (req, res) {
-  // // Check if the API key is defined
-  // if (!process.env.TRN_API_KEY) {
-  //   console.error('API key is not defined. Please check your .env file.')
-  //   return
-  // }
-  //
-  // const url = 'https://api.tracker.gg/api/v2/rocket-league/standard/profile/steam/76561198279212437'
-  //
-  // axios.get(url, {
-  //   headers: {
-  //     'TRN-Api-Key': process.env.TRN_API_KEY
-  //   }
-  // })
-  //   .then(response => {
-  //     // The data from the API will be in response.data
-  //     const data = response.data
-  //
-  //     // Check if the segments exist in the response data
-  //     if (!data.segments) {
-  //       console.error('Segments do not exist in the response data. Please check the API endpoint and the structure of the response data.')
-  //       return
-  //     }
-  //
-  //     // Extract the MMRs
-  //     const mmr3sSegment = data.segments.find(segment => segment.attributes.name === '3s')
-  //     const mmr2sSegment = data.segments.find(segment => segment.attributes.name === '2s')
-  //     const mmr1sSegment = data.segments.find(segment => segment.attributes.name === '1s')
-  //
-  //     // Check if the segments for the 3 playlists exist
-  //     if (!mmr3sSegment || !mmr2sSegment || !mmr1sSegment) {
-  //       console.error('One or more segments for the 3 playlists do not exist. Please check the API endpoint and the structure of the response data.')
-  //       return
-  //     }
-  //
-  //     const mmr3s = mmr3sSegment.attributes.mmr
-  //     const mmr2s = mmr2sSegment.attributes.mmr
-  //     const mmr1s = mmr1sSegment.attributes.mmr
-  //
-  //     console.log(`3s MMR: ${mmr3s}`)
-  //     console.log(`2s MMR: ${mmr2s}`)
-  //     console.log(`1s MMR: ${mmr1s}`)
-  //   })
-  //   .catch(error => {
-  //     console.error(error)
-  //   })
+async function getRocketLeagueData (req, res) {
+  const updatePlayerMMRs = async (players) => {
+    for (const player of players) {
+      const options = {
+        method: 'GET',
+        url: `https://rocket-league1.p.rapidapi.com/ranks/${player.username}`,
+        headers: {
+          'User-Agent': 'RapidAPI Playground',
+          'Accept-Encoding': 'identity',
+          'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+          'X-RapidAPI-Host': 'rocket-league1.p.rapidapi.com'
+        }
+      }
+
+      try {
+        const response = await axios.request(options)
+        const ranks = response.data.ranks
+
+        player.mmr1s = ranks.find(rank => rank.playlist === 'Duel (Ranked)').mmr
+        player.mmr2s = ranks.find(rank => rank.playlist === 'Doubles (Ranked)').mmr
+        player.mmr3s = ranks.find(rank => rank.playlist === 'Standard (Ranked)').mmr
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  await updatePlayerMMRs(varsityPlayers)
+  // await updatePlayerMMRs(jvPlayers)
+  // await updatePlayerMMRs(jv2Players)
 
   const addImagePaths = (players) => {
     players.forEach(player => {
