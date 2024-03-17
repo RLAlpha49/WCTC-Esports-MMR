@@ -1,4 +1,8 @@
-CREATE OR REPLACE FUNCTION Players.add_or_update_player(input_username VARCHAR(255), input_status VARCHAR(255), input_team VARCHAR(255))
+CREATE OR REPLACE FUNCTION Players.add_or_update_player(
+  input_username VARCHAR(255),
+  input_status VARCHAR(255),
+  input_team VARCHAR(255)
+)
 RETURNS TABLE (input_playerid INTEGER, username VARCHAR(255), team VARCHAR(255)) AS $$
 DECLARE
   existing_playerid INTEGER;
@@ -21,4 +25,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-Players.add_or_update_player('existing_username', 'new_status', 'new_team');
+-- Players.add_or_update_player('existing_username', 'new_status', 'new_team');

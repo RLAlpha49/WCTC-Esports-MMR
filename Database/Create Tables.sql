@@ -1,6 +1,7 @@
 -- Create the All table within the Players schema
+CREATE SEQUENCE Players.all_playerid_seq;
 CREATE TABLE Players.All (
-  playerid SERIAL PRIMARY KEY,
+  playerid INTEGER PRIMARY KEY DEFAULT nextval('Players.all_playerid_seq'),
   username VARCHAR(255) NOT NULL,
   status VARCHAR(255) DEFAULT 'current'
 );
