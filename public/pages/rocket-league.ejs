@@ -23,7 +23,7 @@
           <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" data-src="<%= player.mmr3sImagePath %>" alt="<%= player.mmr3s %> rank"></p>
           <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" data-src="<%= player.mmr2sImagePath %>" alt="<%= player.mmr2s %> rank"></p>
           <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" data-src="<%= player.mmr1sImagePath %>" alt="<%= player.mmr1s %> rank"></p>
-          <p>Average MMR: <%= (player.mmr3s + player.mmr2s + player.mmr1s) / 3 %></p>
+          <p>Average MMR (2s & 3s): <%= Math.round((player.mmr3s + player.mmr2s) / 2) %></p>
         <% }) %>
       <% }) %>
 

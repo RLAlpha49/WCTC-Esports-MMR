@@ -25,7 +25,7 @@ const rankDistribution1s = [
   { rank: 'Grand_Champion_II', mmrMin: 1225, mmrMax: 1294 },
   { rank: 'Grand_Champion_III', mmrMin: 1295, mmrMax: 1347 },
   { rank: 'Supersonic_Legend', mmrMin: 1348, mmrMax: null }
-];
+]
 
 const rankDistribution2s3s = [
   { rank: 'Bronze_I', mmrMin: 100, mmrMax: 171 },
