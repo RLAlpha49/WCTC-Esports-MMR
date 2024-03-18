@@ -55,6 +55,7 @@ const rankDistribution2s3s = [
 const imagePathBase = '/images/RL-Ranks/'
 
 async function getRocketLeagueData (req, res) {
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const updatePlayerMMRs = async (players) => {
     for (const player of players) {
       // Check if player exists in mmr.rocketleague
@@ -115,8 +116,15 @@ async function getRocketLeagueData (req, res) {
 
         // Update last_updated in players.rocketleague
         await db.query('UPDATE players.rocketleague SET last_updated = $1 WHERE username = $2', [new Date(), player.username])
+
+        await delay(1000);
       } catch (error) {
-        console.error(error)
+        if (error.response && error.response.status === 429) {
+          console.error('Daily limit reached, stopping further requests');
+          break;
+        } else {
+          console.error(error);
+        }
       }
     }
     return players
@@ -151,7 +159,7 @@ async function getRocketLeagueData (req, res) {
         const mmr = player[mmrKey]
         const rankInfo = rankDistributions[index].find(rank => mmr >= rank.mmrMin && mmr <= rank.mmrMax)
         if (rankInfo) {
-          player[`${mmrKey}ImagePath`] = imagePathBase + `${rankInfo.rank}.png`
+          player[`${mmrKey}ImagePath`] = imagePathBase + `${rankInfo.rank}.webp`
         }
       })
     })
