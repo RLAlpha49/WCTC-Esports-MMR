@@ -14,7 +14,7 @@ Please note that you need to provide your own API key in a `.env` file for the a
 
 Additionally, you need to provide the database connection details in the `.env` file:
 
-```
+```env
 DB_HOST=your_database_host
 DB_PORT=your_database_port
 DB_USER=your_database_user

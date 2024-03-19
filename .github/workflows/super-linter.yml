@@ -22,5 +22,4 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHECKSTYLE_CONFIG_FILE: "checkstyle.xml"
-          SQLFLUFF_CONFIG_FILE: ".sqlfluff"
-          FILTER_REGEX_EXCLUDE: ".*\\.webp$"
+          FILTER_REGEX_EXCLUDE: ".*\\.webp$|.*\\.sql$"
