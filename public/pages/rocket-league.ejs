@@ -18,12 +18,23 @@
 
       <% ['Varsity', 'JV', 'JV2'].forEach(division => { %>
         <h2><%= division %></h2>
+        <%
+        var totalMMR = 0;
+        var playerCount = players[division.toLowerCase()].length;
+        players[division.toLowerCase()].forEach(player => {
+          var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2);
+          totalMMR += playerAvgMMR;
+        })
+        var teamAvgMMR = Math.round(totalMMR / playerCount);
+        %>
+        <p>Team Average MMR (2s & 3s): <%= teamAvgMMR %></p>
         <% players[division.toLowerCase()].forEach(player => { %>
           <h3><%= player.username %></h3>
           <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" data-src="<%= player.mmr3sImagePath %>" alt="<%= player.mmr3s %> rank"></p>
           <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" data-src="<%= player.mmr2sImagePath %>" alt="<%= player.mmr2s %> rank"></p>
           <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" data-src="<%= player.mmr1sImagePath %>" alt="<%= player.mmr1s %> rank"></p>
-          <p>Average MMR (2s & 3s): <%= Math.round((player.mmr3s + player.mmr2s) / 2) %></p>
+          <% var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2) %>
+          <p>Average MMR (2s & 3s): <%= playerAvgMMR %></p>
         <% }) %>
       <% }) %>
 
