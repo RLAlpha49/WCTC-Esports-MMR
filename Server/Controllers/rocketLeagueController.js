@@ -58,8 +58,15 @@ async function getRocketLeagueData (req, res) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
   const updatePlayerMMRs = async (players) => {
     for (const player of players) {
-      // Check if player exists in mmr.rocketleague
-      const playerExists = await db.query('SELECT * FROM mmr.rocketleague WHERE username = $1', [player.username])
+      // Check if player exists in mmr.rocketleague and get last_updated from players.rocketleague
+      const playerExists = await db.query(`
+        SELECT m.*, p.last_updated 
+        FROM mmr.rocketleague m 
+        JOIN players.rocketleague p ON m.username = p.username 
+        WHERE m.username = $1
+      `, [player.username])
+
+      console.log(playerExists.rows[0])
 
       if (playerExists.rows.length > 0) {
         const lastUpdated = moment(playerExists.rows[0].last_updated)
@@ -121,7 +128,13 @@ async function getRocketLeagueData (req, res) {
       } catch (error) {
         if (error.response && error.response.status === 429) {
           console.error('Daily limit reached, stopping further requests')
-          break
+          // Fallback to fetch data from the database
+          if (playerExists.rows.length > 0) {
+            console.log(`Fetching data from database for player ${player.username}`)
+            player.mmr1s = playerExists.rows[0].mmr1s
+            player.mmr2s = playerExists.rows[0].mmr2s
+            player.mmr3s = playerExists.rows[0].mmr3s
+          }
         } else {
           console.error(error)
         }
@@ -168,7 +181,7 @@ async function getRocketLeagueData (req, res) {
   addImagePaths(players)
 
   // Group players by team
-  const groupedPlayers = ['varsity', 'jv', 'jv2'].reduce((grouped, team) => {
+  const groupedPlayers = ['varsity', 'jv'].reduce((grouped, team) => {
     grouped[team] = players.filter(player => player.team.toLowerCase() === team)
     return grouped
   }, {})

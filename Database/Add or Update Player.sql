@@ -25,4 +25,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Players.add_or_update_player('existing_username', 'new_status', 'new_team');
+-- SELECT * FROM Players.add_or_update_player('existing_username', 'new_status', 'new_team');
