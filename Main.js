@@ -1,5 +1,5 @@
 require('./Server/dbInit')
-const server = require('./Server/server')
+const server = require('./Server/Server.js')
 
 if (require.main === module) {
   server.start()
