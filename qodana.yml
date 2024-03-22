@@ -6,3 +6,4 @@ exclude:
     paths:
       - public/pages/rocket-league.ejs
   - name: StandardJS
+  - name: ExceptionCaughtLocallyJS
