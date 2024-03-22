@@ -7,6 +7,7 @@ const app = require('./Main.js')
 const http = require('http')
 
 let server
+let hasFailures = false
 
 before(function (done) {
   const tempServer = http.createServer()
@@ -27,11 +28,11 @@ after(function (done) {
   if (server && server.listening) {
     server.close(() => {
       console.log('\nServer closed. Exiting test.')
-      process.exit()
+      process.exit(hasFailures ? 1 : 0)
     })
   } else {
     console.log('\nNo server to close. Exiting test.')
-    process.exit()
+    process.exit(hasFailures ? 1 : 0)
   }
 })
 
@@ -42,6 +43,7 @@ function checkAssertion (assertion, message) {
     console.log(chalk.green('√ Passed'))
   } catch (error) {
     console.log(chalk.red('✖ Failed:', error.message))
+    hasFailures = true
   }
 }
 
