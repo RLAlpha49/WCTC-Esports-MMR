@@ -106,6 +106,7 @@ async function getRocketLeagueData (req, res) {
         const ranks = response.data.ranks
 
         if (!Array.isArray(ranks)) {
+          // noinspection ExceptionCaughtLocallyJS
           throw new Error(`Invalid ranks data for player ${player.username}: ${ranks}`)
         }
 
