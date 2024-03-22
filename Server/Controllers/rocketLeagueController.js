@@ -105,6 +105,10 @@ async function getRocketLeagueData (req, res) {
         const response = await axios.request(options)
         const ranks = response.data.ranks
 
+        if (!Array.isArray(ranks)) {
+          throw new Error(`Invalid ranks data for player ${player.username}: ${ranks}`)
+        }
+
         console.log(`API response for player ${player.username}:`, ranks)
 
         player.mmr1s = ranks.find(rank => rank.playlist === 'Duel (Ranked)').mmr
@@ -128,15 +132,16 @@ async function getRocketLeagueData (req, res) {
       } catch (error) {
         if (error.response && error.response.status === 429) {
           console.error('Daily limit reached, stopping further requests')
-          // Fallback to fetch data from the database
-          if (playerExists.rows.length > 0) {
-            console.log(`Fetching data from database for player ${player.username}`)
-            player.mmr1s = playerExists.rows[0].mmr1s
-            player.mmr2s = playerExists.rows[0].mmr2s
-            player.mmr3s = playerExists.rows[0].mmr3s
-          }
         } else {
           console.error(error)
+        }
+
+        // Fallback to fetch data from the database
+        if (playerExists.rows.length > 0) {
+          console.log(`Fetching data from database for player ${player.username}`)
+          player.mmr1s = playerExists.rows[0].mmr1s
+          player.mmr2s = playerExists.rows[0].mmr2s
+          player.mmr3s = playerExists.rows[0].mmr3s
         }
       }
     }
@@ -147,7 +152,7 @@ async function getRocketLeagueData (req, res) {
   const playersAll = await db.query('SELECT * FROM players.all WHERE status = $1', ['current'])
 
   // Select all players from players.rocketleague
-  const playersRocketLeague = await db.query('SELECT * FROM players.rocketleague')
+  const playersRocketLeague = await db.query('SELECT * FROM players.rocketleague ORDER BY last_updated ASC')
 
   // Merge the two player arrays
   let players = Array.isArray(playersAll.rows)
