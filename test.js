@@ -24,7 +24,7 @@ before(function (done) {
   })
 })
 
-after(function (done) {
+after(function () {
   if (server && server.listening) {
     server.close(() => {
       console.log('\nServer closed. Exiting test.')
