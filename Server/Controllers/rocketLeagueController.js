@@ -60,10 +60,10 @@ async function getRocketLeagueData (req, res) {
     for (const player of players) {
       // Check if player exists in mmr.rocketleague and get last_updated from players.rocketleague
       const playerExists = await db.query(`
-        SELECT m.*, p.last_updated 
-        FROM mmr.rocketleague m 
-        JOIN players.rocketleague p ON m.username = p.username 
-        WHERE m.username = $1
+          SELECT m.*, p.last_updated
+          FROM mmr.rocketleague m
+                   JOIN players.rocketleague p ON m.username = p.username
+          WHERE m.username = $1
       `, [player.username])
 
       console.log(playerExists.rows[0])

@@ -11,4 +11,4 @@ function start () {
   })
 }
 
-module.exports = { start }
+module.exports = { app, start }

@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>WCTC Esports Program - Rocket League</title>
     <!--suppress HtmlUnknownTarget -->
-  <link rel="stylesheet" type="text/css" href="/styles/common.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Rocket League MMR</h1>
-      <p>
-        Welcome to the Rocket League section of the WCTC Esports Program
-        website. Here, you can track MMR for Rocket League players in different
-        divisions.
-      </p>
+    <link rel="stylesheet" type="text/css" href="/styles/common.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Rocket League MMR</h1>
+    <p>Welcome to the Rocket League section of the WCTC Esports Program website. Here, you can track MMR for Rocket
+        League players in different divisions.</p>
 
-      <% ['Varsity', 'JV'].forEach(division => { %>
+    <% ['Varsity', 'JV'].forEach(division => { %>
         <h2><%= division %></h2>
         <%
-        var totalMMR = 0;
-        var playerCount = players[division.toLowerCase()].length;
-        players[division.toLowerCase()].forEach(player => {
-          var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2);
-          totalMMR += playerAvgMMR;
-        })
-        var teamAvgMMR = Math.round(totalMMR / playerCount);
+            var totalMMR = 0
+            var playerCount = players[division.toLowerCase()].length
+            players[division.toLowerCase()].forEach(player => {
+                var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2)
+                totalMMR += playerAvgMMR
+            })
+            var teamAvgMMR = Math.round(totalMMR / playerCount)
         %>
         <p>Team Average MMR (2s & 3s): <%= teamAvgMMR %></p>
         <% players[division.toLowerCase()].forEach(player => { %>
-          <h3><%= player.username %></h3>
-          <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" data-src="<%= player.mmr3sImagePath %>" alt="<%= player.mmr3s %> rank"></p>
-          <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" data-src="<%= player.mmr2sImagePath %>" alt="<%= player.mmr2s %> rank"></p>
-          <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" data-src="<%= player.mmr1sImagePath %>" alt="<%= player.mmr1s %> rank"></p>
-          <% var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2) %>
-          <p>Average MMR (2s & 3s): <%= playerAvgMMR %></p>
+            <h3><%= player.username %></h3>
+            <p>3s MMR: <%= player.mmr3s %> <img class="mmr-image" data-src="<%= player.mmr3sImagePath %>"
+                                                alt="<%= player.mmr3s %> rank"></p>
+            <p>2s MMR: <%= player.mmr2s %> <img class="mmr-image" data-src="<%= player.mmr2sImagePath %>"
+                                                alt="<%= player.mmr2s %> rank"></p>
+            <p>1s MMR: <%= player.mmr1s %> <img class="mmr-image" data-src="<%= player.mmr1sImagePath %>"
+                                                alt="<%= player.mmr1s %> rank"></p>
+            <% var playerAvgMMR = Math.round((player.mmr3s + player.mmr2s) / 2) %>
+            <p>Average MMR (2s & 3s): <%= playerAvgMMR %></p>
         <% }) %>
-      <% }) %>
+    <% }) %>
 
-    </div>
-    <!--suppress HtmlUnknownTarget -->
-    <script src="/scripts/lazyLoadImages.js"></script>
-  </body>
+</div>
+<!--suppress HtmlUnknownTarget -->
+<script src="/scripts/lazyLoadImages.js"></script>
+</body>
 </html>

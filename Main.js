@@ -1,4 +1,8 @@
 require('./Server/dbInit')
 const server = require('./Server/server')
 
-server.start()
+if (require.main === module) {
+  server.start()
+}
+
+module.exports = server.app
