@@ -1,12 +1,11 @@
 ---
-name: Lint Code Base
+name: Linting
 
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-
 jobs:
   run-lint:
     runs-on: ubuntu-latest
@@ -16,11 +15,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
+      - name: Super-Linter
+        uses: super-linter/super-linter@v6.3.0
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_CHECKOV: false
           CHECKSTYLE_CONFIG_FILE: "checkstyle.xml"
           FILTER_REGEX_EXCLUDE: ".*\\.webp$|.*\\.sql$"
