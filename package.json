@@ -4,7 +4,7 @@
   "description": "",
   "main": "Main.js",
   "scripts": {
-    "test": "mocha test.js",
+    "test": "mocha ./tests/initTest.js",
     "standard-fix": "standard --fix",
     "start": "node Main.js"
   },
