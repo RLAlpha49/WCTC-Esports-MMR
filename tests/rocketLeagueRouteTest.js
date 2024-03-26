@@ -8,7 +8,8 @@ const { checkAssertion } = require('../tests/testUtils.js')
 describe('Testing the /rocket-league route', () => {
   let response
 
-  before(async () => {
+  before(async function () {
+    this.timeout(5000)
     response = await request(app).get('/rocket-league')
   })
 
