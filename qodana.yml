@@ -7,5 +7,6 @@ exclude:
       - public/pages/rocket-league.ejs
   - name: StandardJS
   - name: ExceptionCaughtLocallyJS
+  - name: BadExpressionStatementJS
 include:
   - name: CheckDependencyLicenses
