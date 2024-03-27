@@ -7,7 +7,7 @@ Additionally, the application uses PostgreSQL functions to add or update player 
 ## How to Run
 
 1. Install dependencies with `npm install`.
-2. Start the server with `node Main`.
+2. Start the server with `npm start`.
 3. Open a web browser and navigate to `http://localhost:3000`.
 
 Please note that you need to provide your own API key in a `.env` file for the application to fetch player data. In format of `API_KEY=your_api_key_here`.
