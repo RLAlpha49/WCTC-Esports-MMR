@@ -3,7 +3,7 @@
 const request = require('supertest')
 const { expect } = require('chai')
 const app = require('../Main.js')
-const { checkAssertion } = require('../tests/testUtils.js')
+const { checkAssertion } = require('./testUtils.js')
 
 describe('Testing the root path', () => {
   let response

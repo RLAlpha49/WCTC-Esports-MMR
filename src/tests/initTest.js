@@ -2,7 +2,7 @@
 
 const http = require('http')
 const app = require('../Main.js')
-const { hasFailures } = require('../tests/testUtils.js')
+const { hasFailures } = require('./testUtils.js')
 
 let server
 
@@ -33,5 +33,5 @@ after(function () {
   }
 })
 
-require('../tests/rootRouteTest.js')
-require('../tests/rocketLeagueRouteTest.js')
+require('./rootRouteTest.js')
+require('./rocketLeagueRouteTest.js')

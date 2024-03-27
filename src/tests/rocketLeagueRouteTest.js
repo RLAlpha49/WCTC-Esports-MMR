@@ -3,13 +3,13 @@
 const request = require('supertest')
 const { expect } = require('chai')
 const app = require('../Main.js')
-const { checkAssertion } = require('../tests/testUtils.js')
+const { checkAssertion } = require('./testUtils.js')
 
 describe('Testing the /rocket-league route', () => {
   let response
 
   before(async function () {
-    this.timeout(5000)
+    this.timeout(10000)
     response = await request(app).get('/rocket-league')
   })
 

@@ -2,11 +2,11 @@
   "name": "wctc-esports-mmr",
   "version": "1.0.0",
   "description": "",
-  "main": "Main.js",
+  "main": "src/Main.js",
   "scripts": {
-    "test": "mocha ./tests/initTest.js",
+    "test": "mocha src/tests/initTest.js",
     "standard-fix": "standard --fix",
-    "start": "node Main.js"
+    "start": "node src/Main.js"
   },
   "keywords": [],
   "author": "",
